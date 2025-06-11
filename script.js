@@ -1,6 +1,7 @@
 let currentSong = new Audio;
 let songs;
 let currfolder;
+
 async function getsongs(folder) {
   currfolder = folder
   let a = await fetch(`http://127.0.0.1:3000/${folder}/`)
@@ -75,12 +76,14 @@ async function displayalbums() {
 
 
   for (let i = 0; i < array.length; i++) {
+      try {
     const e = array[i];
 
-    if (e.href.includes("/songs")) {
+    if (e.href.includes("/songs")&& !e.href.includes(".htaccess")) {
       let folder = e.href.split("/").slice(-2)[0]
       // get the meta data of the folder
-      let a = await fetch(`http://127.0.0.1:3000/songs/${folder}/info.JSON`)
+      // let a = await fetch(`http://127.0.0.1:3000/songs/${folder}/info.JSON`)
+      let a = await fetch(`/songs/${folder}/info.json`)
       let response = await a.json();
 
       document.querySelector(".cardcontainer").innerHTML = document.querySelector(".cardcontainer").innerHTML + `<div data-folder=${folder} class="card">
@@ -93,6 +96,10 @@ async function displayalbums() {
                         <p>${response.description}</p>
                     </div>`
     }
+  } catch (err) {
+    console.warn(`Error loading album: ${err.message}`);
+  }
+
   }
   // load the playlist whenever card is clicked
   Array.from(document.getElementsByClassName("card")).forEach(e => {
