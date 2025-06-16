@@ -20,7 +20,7 @@
 
 ## 📸 Preview
 
-![Musicify Screenshot](./.png) <!-- Replace with your actual screenshot -->
+![Musicify Screenshot](./Musicify.png) <!-- Replace with your actual screenshot -->
 
 ## ⚙️ How It Works
 
